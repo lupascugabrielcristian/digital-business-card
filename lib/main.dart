@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 void main() {
   runApp(const MyApp());
@@ -54,18 +55,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,60 +67,58 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
+        body: Container(
+          margin: const EdgeInsets.symmetric(vertical: 20.0),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(0, 13, 34, 1),
+                Color.fromRGBO(54, 68, 91, 1)
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight),
+            border: Border.all(
+              color: Colors.transparent,
+            ),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
           child: Column(
-            spacing: 20,
-            // Column is also a layout widget. It takes a list of children and
-            // arranges them vertically. By default, it sizes itself to fit its
-            // children horizontally, and tries to be as tall as its parent.
-            //
-            // Column has various properties to control how it sizes itself and
-            // how it positions its children. Here we use mainAxisAlignment to
-            // center the children vertically; the main axis here is the vertical
-            // axis because Columns are vertical (the cross axis would be
-            // horizontal).
-            //
-            // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-            // action in the IDE, or press "p" in the console), to see the
-            // wireframe for each widget.
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+
+              // NUMELE SI DATELE DE CONTACT
               Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Company: BinaryFusion.ro'),
-                        const Text('Name: Lupascu Gabriel'),
-                        const Text('Email: contact@binaryfusion.ro'),
+                        Text('Mihaela Despina', style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.w700),),
+                        Text('Email: contact@lead4g.com', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),),
+                        Text('Tel: 0123 032 023', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),),
+                        Text('Web: lead4growth.com', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),),
                       ],
                     ),
-                  ),
+                  )
                 ],
               ),
 
-              // QR code 1
-              Container(
-                color: Colors.red,
-                height: 300,
-                child: Center(
-                  child: Text('QR Code 1 Placeholder'),
+              // QR CODE
+              PrettyQrView(
+                qrImage: QrImage(QrCode.fromData(data: 'https://lead4growth.com', errorCorrectLevel: QrErrorCorrectLevel.M),),
+                decoration: const PrettyQrDecoration(
+                  background: Colors.transparent,
+                  shape: PrettyQrSmoothSymbol(
+                    color: Colors.white,
+                  ),
+                  quietZone: PrettyQrQuietZone.modules(2),
+                  image: PrettyQrDecorationImage(image: AssetImage('assets/logo.png'), position: PrettyQrDecorationImagePosition.embedded),
+                  // image: AssetImage('assets/logo.png'),
+                  // imageSize: Size(40, 40),
                 ),
-              ),
-
-              // QR code 2
-              Container(
-                color: Colors.blue,
-                height: 300,
-                child: Center(
-                  child: Text('QR Code 1 Placeholder'),
-                ),
-              ),
+              )
 
             ],
           ),
