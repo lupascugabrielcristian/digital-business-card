@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,6 +40,29 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
+  final sources = const [
+    QRCodeSource(
+      url: 'https://www.linkedin.com/company/lead4growthconsulting',
+      qrImagePath: 'assets/linkedin.png',
+      assetPath: 'assets/linkedin.png',
+    ),
+    QRCodeSource(
+      url: 'https://www.binaryfusion.ro',
+      qrImagePath: 'assets/insta-qr.png',
+      assetPath: 'assets/web.svg',
+    ),
+    QRCodeSource(
+      url: 'https://www.binaryfusion.ro',
+      qrImagePath: 'assets/insta-qr.png',
+      assetPath: 'assets/insta.svg',
+    ),
+    QRCodeSource(
+      url: 'https://www.binaryfusion.ro',
+      qrImagePath: 'assets/facebook.png',
+      assetPath: 'assets/facebook.png',
+    ),
+  ];
+
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
   // how it looks.
@@ -50,11 +74,13 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late QRCodeSource selectedSource = widget.sources[0];
 
   @override
   Widget build(BuildContext context) {
@@ -82,16 +108,17 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             borderRadius: BorderRadius.circular(20.0),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            child: Column(
+              spacing: 30,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
 
-              // NUMELE SI DATELE DE CONTACT
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: Column(
+                // NUMELE SI DATELE DE CONTACT
+                Row(
+                  children: [
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -100,30 +127,68 @@ class _MyHomePageState extends State<MyHomePage> {
                         Text('Tel: 0123 032 023', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),),
                         Text('Web: lead4growth.com', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),),
                       ],
-                    ),
-                  )
-                ],
-              ),
-
-              // QR CODE
-              PrettyQrView(
-                qrImage: QrImage(QrCode.fromData(data: 'https://lead4growth.com', errorCorrectLevel: QrErrorCorrectLevel.M),),
-                decoration: const PrettyQrDecoration(
-                  background: Colors.transparent,
-                  shape: PrettyQrSmoothSymbol(
-                    color: Colors.white,
-                  ),
-                  quietZone: PrettyQrQuietZone.modules(2),
-                  image: PrettyQrDecorationImage(image: AssetImage('assets/logo.png'), position: PrettyQrDecorationImagePosition.embedded),
-                  // image: AssetImage('assets/logo.png'),
-                  // imageSize: Size(40, 40),
+                    )
+                  ],
                 ),
-              )
 
-            ],
+                // QR CODE
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: PrettyQrView(
+                    qrImage: QrImage(QrCode.fromData(data: selectedSource.url, errorCorrectLevel: QrErrorCorrectLevel.M),),
+                    decoration: PrettyQrDecoration(
+                      background: Colors.transparent,
+                      shape: const PrettyQrSmoothSymbol(
+                        color: Colors.white,
+                      ),
+                      quietZone: const PrettyQrQuietZone.modules(0),
+                      image: PrettyQrDecorationImage(
+                          image: AssetImage(selectedSource.qrImagePath),
+                          position: PrettyQrDecorationImagePosition.embedded,
+                          scale: 0.3,
+                      ),
+                      // image: AssetImage('assets/logo.png'),
+                      // imageSize: Size(40, 40),
+                    ),
+                  ),
+                ),
+
+                // SOCIAL MEDIA ICONS
+                SizedBox(
+                  height: 50,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: widget.sources.map((x) => _getSocialIcon(x)).toList(),
+                  ),
+                ),
+
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+
+  Widget _getSocialIcon(QRCodeSource source) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedSource = source;
+        });
+      },
+      child: source.assetPath.endsWith('.svg')
+        ? AspectRatio(aspectRatio: 1, child: SvgPicture.asset(source.assetPath, width: 40, height: 40,))
+        : AspectRatio(aspectRatio: 1, child: Image.asset(source.assetPath, width: 40, height: 40,)),
+    );
+  }
+}
+
+class QRCodeSource {
+  final String url;
+  final String qrImagePath;
+  final String assetPath;
+
+  const QRCodeSource({required this.url, required this.qrImagePath, required this.assetPath});
 }
