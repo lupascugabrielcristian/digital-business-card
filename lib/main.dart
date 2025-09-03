@@ -94,19 +94,20 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         backgroundColor: Color.fromARGB(255, 73, 72, 72),
         body: Container(
-          margin: const EdgeInsets.symmetric(vertical: 20.0),
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromRGBO(0, 13, 34, 1),
-                Color.fromRGBO(54, 68, 91, 1)
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight),
-            border: Border.all(
-              color: Colors.transparent,
+            image: DecorationImage(image: AssetImage('assets/forest.png'),
+            fit: BoxFit.cover
+            // gradient: LinearGradient(
+            //   colors: [
+            //     Color.fromRGBO(0, 13, 34, 1),
+            //     Color.fromRGBO(54, 68, 91, 1)
+            //   ],
+            //   begin: Alignment.topLeft,
+            //   end: Alignment.bottomRight),
+            // border: Border.all(
+            //   color: Colors.transparent,
             ),
-            borderRadius: BorderRadius.circular(20.0),
+            // borderRadius: BorderRadius.circular(20.0),
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40.0),
