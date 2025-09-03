@@ -42,23 +42,23 @@ class MyHomePage extends StatefulWidget {
 
   final sources = const [
     QRCodeSource(
-      url: 'https://www.linkedin.com/company/lead4growthconsulting',
-      qrImagePath: 'assets/linkedin.png',
+      url: 'https://www.linkedin.com/in/mdespina',
+      qrImagePath: 'assets/linkedin-qr.png',
       assetPath: 'assets/linkedin.png',
     ),
     QRCodeSource(
-      url: 'https://www.binaryfusion.ro',
-      qrImagePath: 'assets/insta-qr.png',
+      url: 'https://www.linkedin.com/company/lead4growthconsulting',
+      qrImagePath: 'assets/web-qr.png',
       assetPath: 'assets/web.svg',
     ),
     QRCodeSource(
-      url: 'https://www.binaryfusion.ro',
+      url: 'https://www.instagram.com/binaryfusion.ro',
       qrImagePath: 'assets/insta-qr.png',
       assetPath: 'assets/insta.svg',
     ),
     QRCodeSource(
-      url: 'https://www.binaryfusion.ro',
-      qrImagePath: 'assets/facebook.png',
+      url: 'https://www.facebook.com/profile.php?id=61578027117472',
+      qrImagePath: 'assets/facebook-qr.png',
       assetPath: 'assets/facebook.png',
     ),
   ];
@@ -92,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 73, 72, 72),
         body: Container(
           margin: const EdgeInsets.symmetric(vertical: 20.0),
           decoration: BoxDecoration(
@@ -134,21 +134,40 @@ class _MyHomePageState extends State<MyHomePage> {
                 // QR CODE
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  child: PrettyQrView(
-                    qrImage: QrImage(QrCode.fromData(data: selectedSource.url, errorCorrectLevel: QrErrorCorrectLevel.M),),
-                    decoration: PrettyQrDecoration(
-                      background: Colors.transparent,
-                      shape: const PrettyQrSmoothSymbol(
-                        color: Colors.white,
+                  child: GestureDetector(
+                    onHorizontalDragEnd: (dragDetails) {
+                      if (dragDetails.primaryVelocity != null && dragDetails.primaryVelocity! < 0) {
+                        // Swiped Left
+                        setState(() {
+                          int currentIndex = widget.sources.indexOf(selectedSource);
+                          int nextIndex = (currentIndex + 1) % widget.sources.length;
+                          selectedSource = widget.sources[nextIndex];
+                        });
+                      } else if (dragDetails.primaryVelocity != null && dragDetails.primaryVelocity! > 0) {
+                        // Swiped Right
+                        setState(() {
+                          int currentIndex = widget.sources.indexOf(selectedSource);
+                          int previousIndex = (currentIndex - 1 + widget.sources.length) % widget.sources.length;
+                          selectedSource = widget.sources[previousIndex];
+                        });
+                      }
+                    },
+                    child: PrettyQrView(
+                      qrImage: QrImage(QrCode.fromData(data: selectedSource.url, errorCorrectLevel: QrErrorCorrectLevel.H),),
+                      decoration: PrettyQrDecoration(
+                        background: Colors.transparent,
+                        shape: const PrettyQrSmoothSymbol(
+                          color: Colors.white,
+                        ),
+                        quietZone: const PrettyQrQuietZone.modules(0),
+                        image: PrettyQrDecorationImage(
+                            image: AssetImage(selectedSource.qrImagePath),
+                            position: PrettyQrDecorationImagePosition.embedded,
+                            scale: 0.3,
+                        ),
+                        // image: AssetImage('assets/logo.png'),
+                        // imageSize: Size(40, 40),
                       ),
-                      quietZone: const PrettyQrQuietZone.modules(0),
-                      image: PrettyQrDecorationImage(
-                          image: AssetImage(selectedSource.qrImagePath),
-                          position: PrettyQrDecorationImagePosition.embedded,
-                          scale: 0.3,
-                      ),
-                      // image: AssetImage('assets/logo.png'),
-                      // imageSize: Size(40, 40),
                     ),
                   ),
                 ),
