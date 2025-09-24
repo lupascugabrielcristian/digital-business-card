@@ -41,13 +41,21 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
   final sources = const [
+    // LinkedIn Thia
     QRCodeSource(
-      url: 'https://www.linkedin.com/in/mdespina',
+      url: 'https://www.linkedin.com/company/thia-work',
       qrImagePath: 'assets/linkedin-qr.png',
-      assetPath: 'assets/linkedin.png',
+      assetPath: 'assets/linkedin.svg',
+    ),
+    // LinkedIn personal
+    QRCodeSource(
+      url: 'https://www.linkedin.com/in/marianoprea',
+      qrImagePath: 'assets/linkedin-m.png',
+      assetPath: 'assets/linkedin-m.svg',
+      height: 70,
     ),
     QRCodeSource(
-      url: 'https://www.linkedin.com/company/lead4growthconsulting',
+      url: 'https://thia.work/',
       qrImagePath: 'assets/web-qr.png',
       assetPath: 'assets/web.svg',
     ),
@@ -55,11 +63,6 @@ class MyHomePage extends StatefulWidget {
       url: 'https://www.instagram.com/binaryfusion.ro',
       qrImagePath: 'assets/insta-qr.png',
       assetPath: 'assets/insta.svg',
-    ),
-    QRCodeSource(
-      url: 'https://www.facebook.com/profile.php?id=61578027117472',
-      qrImagePath: 'assets/facebook-qr.png',
-      assetPath: 'assets/facebook.png',
     ),
   ];
 
@@ -123,10 +126,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Mihaela Despina', style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.w700),),
-                        Text('Email: contact@lead4g.com', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),),
-                        Text('Tel: 0123 032 023', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),),
-                        Text('Web: lead4growth.com', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),),
+                        Text('Marian Oprea', style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.w700),),
+                        Text('Email: moprea@icloud.com', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),),
+                        Text('Tel: +40 723 553 503', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),),
+                        Text('Web: thia.work', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),),
                       ],
                     )
                   ],
@@ -175,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 // SOCIAL MEDIA ICONS
                 SizedBox(
-                  height: 50,
+                  height: 60,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -199,8 +202,8 @@ class _MyHomePageState extends State<MyHomePage> {
         });
       },
       child: source.assetPath.endsWith('.svg')
-        ? AspectRatio(aspectRatio: 1, child: SvgPicture.asset(source.assetPath, width: 40, height: 40,))
-        : AspectRatio(aspectRatio: 1, child: Image.asset(source.assetPath, width: 40, height: 40,)),
+        ? AspectRatio(aspectRatio: 1, child: SvgPicture.asset(source.assetPath, width: source.height, height: source.height,))
+        : AspectRatio(aspectRatio: 1, child: Image.asset(source.assetPath, width: source.height, height: source.height,)),
     );
   }
 }
@@ -209,6 +212,7 @@ class QRCodeSource {
   final String url;
   final String qrImagePath;
   final String assetPath;
+  final double height;
 
-  const QRCodeSource({required this.url, required this.qrImagePath, required this.assetPath});
+  const QRCodeSource({required this.url, required this.qrImagePath, required this.assetPath, this.height = 40});
 }
