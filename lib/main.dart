@@ -49,9 +49,9 @@ class MyHomePage extends StatefulWidget  {
     ),
     // LinkedIn personal
     QRCodeSource(
-      url: 'https://www.linkedin.com/in/marianoprea',
-      qrImagePath: 'assets/linkedin-m.png',
-      assetPath: 'assets/linkedin-m.svg',
+      url: 'https://www.linkedin.com/in/cosmin-chiru/',
+      qrImagePath: 'assets/linking-cc.png',
+      assetPath: 'assets/linking-cc.svg',
       height: 70,
     ),
     QRCodeSource(
@@ -60,7 +60,7 @@ class MyHomePage extends StatefulWidget  {
       assetPath: 'assets/web.svg',
     ),
     QRCodeSource(
-      url: 'MECARD:N:arh. Marian Oprea;ORG:Coworkperativa;TEL:+40723553503;URL:www.coworkperativa.ro;EMAIL:coworkperativa@gmail.com;ADR:Ion Brezoianu 4, Bucuresti;NOTE:www.linkedin.com/in/marianoprea;;',
+      url: 'MECARD:N:dr. Cosmin Chiru;ORG:Thia.work;TEL:+40723418729;URL:https://thia.work;EMAIL:hello@thia.work;ADR:Ion Brezoianu 4, Bucuresti;NOTE:www.linkedin.com/in/cosmin-chiru/;;',
       qrImagePath: 'assets/contacts.png',
       assetPath: 'assets/contacts.svg',
     ),
@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin, 
         backgroundColor: Color.fromARGB(255, 73, 72, 72),
         body: Container(
           decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage('assets/forest.png'),
+            image: DecorationImage(image: AssetImage('assets/coworking-dark.jpg'),
             fit: BoxFit.cover
             // gradient: LinearGradient(
             //   colors: [
@@ -126,10 +126,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin, 
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Marian Oprea', style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.w700),),
-                        Text('Email: moprea@icloud.com', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),),
-                        Text('Tel: +40 723 553 503', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),),
-                        Text('Web: thia.work', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),),
+                        Text('Cosmin Chiru', style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.w700),),
+                        // Text('Email: moprea@icloud.com', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),),
+                        // Text('Tel: +40 723 553 503', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),),
+                        // Text('Web: thia.work', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),),
                       ],
                     )
                   ],
