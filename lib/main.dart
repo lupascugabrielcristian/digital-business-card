@@ -37,14 +37,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatefulWidget  {
   const MyHomePage({super.key, required this.title});
 
   final sources = const [
     // LinkedIn Thia
     QRCodeSource(
       url: 'https://www.linkedin.com/company/thia-work/?viewAsMember=true',
-      qrImagePath: 'assets/linkedin-qr.png',
+      qrImagePath: 'assets/linkedin.png',
       assetPath: 'assets/linkedin.svg',
     ),
     // LinkedIn personal
@@ -82,7 +82,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin, WidgetsBindingObserver {
   late QRCodeSource selectedSource = widget.sources[0];
 
   @override
@@ -156,21 +156,30 @@ class _MyHomePageState extends State<MyHomePage> {
                         });
                       }
                     },
-                    child: PrettyQrView(
-                      qrImage: QrImage(QrCode.fromData(data: selectedSource.url, errorCorrectLevel: QrErrorCorrectLevel.H),),
-                      decoration: PrettyQrDecoration(
-                        background: Colors.transparent,
-                        shape: const PrettyQrSmoothSymbol(
-                          color: Colors.white,
+                    child: AnimatedSwitcher(
+                      duration: Duration(milliseconds: 800),
+                      transitionBuilder: (child, animation) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: child,
+                        );
+                      },
+                      child: PrettyQrView(
+                        qrImage: QrImage(QrCode.fromData(data: selectedSource.url, errorCorrectLevel: QrErrorCorrectLevel.H),),
+                        decoration: PrettyQrDecoration(
+                          background: Colors.transparent,
+                          shape: const PrettyQrSmoothSymbol(
+                            color: Colors.white,
+                          ),
+                          quietZone: const PrettyQrQuietZone.modules(0),
+                          image: PrettyQrDecorationImage(
+                              image: AssetImage(selectedSource.qrImagePath),
+                              position: PrettyQrDecorationImagePosition.embedded,
+                              scale: 0.3,
+                          ),
+                          // image: AssetImage('assets/logo.png'),
+                          // imageSize: Size(40, 40),
                         ),
-                        quietZone: const PrettyQrQuietZone.modules(0),
-                        image: PrettyQrDecorationImage(
-                            image: AssetImage(selectedSource.qrImagePath),
-                            position: PrettyQrDecorationImagePosition.embedded,
-                            scale: 0.3,
-                        ),
-                        // image: AssetImage('assets/logo.png'),
-                        // imageSize: Size(40, 40),
                       ),
                     ),
                   ),
