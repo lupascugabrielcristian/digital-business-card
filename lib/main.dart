@@ -43,7 +43,7 @@ class MyHomePage extends StatefulWidget {
   final sources = const [
     // LinkedIn Thia
     QRCodeSource(
-      url: 'https://www.linkedin.com/company/thia-work',
+      url: 'https://www.linkedin.com/company/thia-work/?viewAsMember=true',
       qrImagePath: 'assets/linkedin-qr.png',
       assetPath: 'assets/linkedin.svg',
     ),
@@ -60,9 +60,9 @@ class MyHomePage extends StatefulWidget {
       assetPath: 'assets/web.svg',
     ),
     QRCodeSource(
-      url: 'https://www.instagram.com/binaryfusion.ro',
-      qrImagePath: 'assets/insta-qr.png',
-      assetPath: 'assets/insta.svg',
+      url: 'MECARD:N:arh. Marian Oprea;ORG:Coworkperativa;TEL:+40723553503;URL:www.coworkperativa.ro;EMAIL:coworkperativa@gmail.com;ADR:Ion Brezoianu 4, Bucuresti;NOTE:www.linkedin.com/in/marianoprea;;',
+      qrImagePath: 'assets/contacts.png',
+      assetPath: 'assets/contacts.svg',
     ),
   ];
 
@@ -127,9 +127,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Marian Oprea', style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.w700),),
-                        Text('Email: moprea@icloud.com', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),),
-                        Text('Tel: +40 723 553 503', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),),
-                        Text('Web: thia.work', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),),
+                        Text('Email: moprea@icloud.com', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),),
+                        Text('Tel: +40 723 553 503', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),),
+                        Text('Web: thia.work', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),),
                       ],
                     )
                   ],
